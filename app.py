@@ -24,6 +24,7 @@ def all_handler(say, message):
      matched_words = [word for word in banned_words if word in text]
 
      if matched_words:
+          print("banned word found")
           alert = (
                f":confused-dino: CRITICAL ADMINISTRATION ALERT\n"
                f"User <@{user_id}> has said a banned word\n"
@@ -35,6 +36,7 @@ def all_handler(say, message):
 
 @app.message(re.compile("clanker", re.IGNORECASE))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 def mention_handler(body, say):
+        print("clanker easteregg")
         say('oi, orphmeteus is not a clanker')
 
 
@@ -46,34 +48,41 @@ def slash_handler(ack, body, say):
 
        if user_id != ADMIN_UID:
             say(f":big-orpheus-plushie: woah, not cool <@{user_id}>. you can't do that.")
+            print("invalid_perms")
             return
        
        if "set" in text.lower():
              parts = text.split()
              if len(parts) != 2 and parts[0].lower() != "set":
                 say(":big-orpheus-plushie: too many arguments")
+                print("too_much_args")
                 return
              else:
                    to_ban = parts[1]
                    banned_words.append(to_ban)
                    say(f":big-orpheus-plushie: banned word '{to_ban}'")
+                   print("word banned")
                    return
        elif "remove" in text.lower():
              parts = text.split()
              if len(parts) != 2 and parts[0].lower() != "remove":
                 say(":big-orpheus-plushie: too many arguments")
+                print("too_much_args")
                 return
              else:
                    to_unban = parts[1]
                    if to_unban in banned_words:
                     banned_words.remove(to_unban)
                     say(f":big-orpheus-plushie: unbanned word {to_unban}")
+                    print("unbanned word")
                     return
                    else:
                     say(f":big-orpheus-plushie: word is not banned")
+                    print("word not banned")
                     return
                    
 
 if __name__ == "__main__":
+        print("starting")
         handler = SocketModeHandler(app, SLACK_APP_TOKEN)
         handler.start()
