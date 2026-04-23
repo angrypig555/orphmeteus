@@ -1,0 +1,3 @@
+services:
+  bot:
+    image: angrypig555/orphmeteus
